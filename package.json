@@ -1,0 +1,27 @@
+{
+  "name": "jdi-engine",
+  "version": "1.0.0",
+  "description": "Engine, JDI",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daneyeah/jdi.git"
+  },
+  "keywords": [
+    "JDI",
+    "Engine",
+    "Framework"
+  ],
+  "author": "dane.yeah",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/daneyeah/jdi/issues"
+  },
+  "homepage": "https://github.com/daneyeah/jdi#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  }
+}
