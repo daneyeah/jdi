@@ -1,0 +1,8 @@
+<?
+
+namespace models;
+
+class JDIPage
+{
+
+}

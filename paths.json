@@ -1,0 +1,56 @@
+{
+  "public": {
+    "clean": "./public/",
+    "admin":{
+      "js": "public/admin/assets/js/",
+      "js_lib": "public/admin/assets/js/lib",
+      "primary": "public/admin/"
+    },
+    "desktop":{
+      "js": "public/desktop/assets/js/",
+      "js_lib": "public/desktop/assets/js/lib",
+      "primary": "public/desktop/"
+    },
+    "mobile":{
+      "js": "public/mobile/assets/js/",
+      "js_lib": "public/mobile/assets/js/lib",
+      "primary": "public/mobile/"
+    }
+  },
+  "src": {
+    "admin": {
+      "js": "sources/admin/assets/js/*.js",
+      "pug": "sources/admin/**/*.pug",
+      "php": "sources/admin/**/*.php"
+    },
+    "desktop": {
+      "js": "sources/desktop/assets/js/*.js",
+      "pug": "sources/desktop/**/*.pug",
+      "php": "sources/desktop/**/*.php"
+    },
+    "common": {
+      "js": "sources/common/assets/js/*.js",
+      "pug": "sources/common/**/*.pug",
+      "php": "sources/common/**/*.php"
+    },
+    "mobile": {
+      "js": "sources/mobile/assets/js/*.js",
+      "pug": "sources/mobile/**/*.pug",
+      "php": "sources/mobile/**/*.php"
+    },
+    "library": {
+      "jquery": "./node_modules/jquery/dist/jquery.min.js"
+    }
+  },
+  "storage":{
+    "clean": "./storage/",
+    "admin": {
+    },
+    "desktop": {
+    },
+    "common": {
+    },
+    "mobile": {
+    }
+  }
+}

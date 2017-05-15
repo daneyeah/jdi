@@ -1,0 +1,8 @@
+<?
+
+namespace controllers;
+
+class JDIController
+{
+
+}

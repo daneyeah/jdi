@@ -2,6 +2,9 @@
 
 .idea/*
 .test/*
+.local/*
+build/*
+public/*
 node_modules/*
 storage/*
 
