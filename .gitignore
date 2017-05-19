@@ -1,10 +1,9 @@
 .gitignore
+*.map
 
-.idea/*
-.test/*
-.local/*
-build/*
-public/*
-node_modules/*
-storage/*
-
+.idea/
+.local/
+.tests/
+build/
+node_modules/
+public/

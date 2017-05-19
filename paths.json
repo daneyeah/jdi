@@ -2,38 +2,57 @@
   "public": {
     "clean": "./public/",
     "admin":{
+      "css": "public/admin/assets/css/",
       "js": "public/admin/assets/js/",
-      "js_lib": "public/admin/assets/js/lib",
+      "js_lib": "public/admin/assets/js/lib/",
       "primary": "public/admin/"
     },
     "desktop":{
+      "css": "public/desktop/assets/css/",
       "js": "public/desktop/assets/js/",
-      "js_lib": "public/desktop/assets/js/lib",
+      "js_lib": "public/desktop/assets/js/lib/",
       "primary": "public/desktop/"
     },
     "mobile":{
+      "css": "public/mobile/assets/css/",
       "js": "public/mobile/assets/js/",
-      "js_lib": "public/mobile/assets/js/lib",
+      "js_lib": "public/mobile/assets/js/lib/",
       "primary": "public/mobile/"
     }
   },
   "src": {
     "admin": {
+      "css": "sources/admin/assets/css/**/*.css",
+      "min_css": "sources/admin/assets/css/min/*.css",
+      "less": "sources/admin/assets/less/**/*.less",
+      "ignore_less": "!sources/admin/assets/less/**/__*.less",
       "js": "sources/admin/assets/js/*.js",
       "pug": "sources/admin/**/*.pug",
       "php": "sources/admin/**/*.php"
     },
     "desktop": {
+      "css": "sources/desktop/assets/css/**/*.css",
+      "min_css": "sources/desktop/assets/css/min/*.css",
+      "less": "sources/desktop/assets/less/**/*.less",
+      "ignore_less": "!sources/desktop/assets/less/**/__*.less",
       "js": "sources/desktop/assets/js/*.js",
       "pug": "sources/desktop/**/*.pug",
       "php": "sources/desktop/**/*.php"
     },
     "common": {
+      "css": "sources/common/assets/css/**/*.css",
+      "min_css": "sources/common/assets/css/min/*.css",
+      "less": "sources/common/assets/less/**/*.less",
+      "ignore_less": "!sources/common/assets/less/**/__*.less",
       "js": "sources/common/assets/js/*.js",
       "pug": "sources/common/**/*.pug",
       "php": "sources/common/**/*.php"
     },
     "mobile": {
+      "css": "sources/mobile/assets/css/**/*.css",
+      "min_css": "sources/mobile/assets/css/min/*.css",
+      "less": "sources/mobile/assets/less/**/*.less",
+      "ignore_less": "!sources/mobile/assets/less/**/__*.less",
       "js": "sources/mobile/assets/js/*.js",
       "pug": "sources/mobile/**/*.pug",
       "php": "sources/mobile/**/*.php"
@@ -42,15 +61,23 @@
       "jquery": "./node_modules/jquery/dist/jquery.min.js"
     }
   },
-  "storage":{
+  "dist":{
     "clean": "./storage/",
     "admin": {
+      "css": "sources/admin/assets/css",
+      "min_css": "sources/admin/assets/css/min"
     },
     "desktop": {
+      "css": "sources/desktop/assets/css",
+      "min_css": "sources/desktop/assets/css/min"
     },
     "common": {
+      "css": "sources/common/assets/css",
+      "min_css": "sources/common/assets/css/min"
     },
     "mobile": {
+      "css": "sources/mobile/assets/css",
+      "min_css": "sources/mobile/assets/css/min"
     }
   }
 }

@@ -8,10 +8,14 @@ var gulp = require('gulp'),
 /* paths variable array */
 var pathFile = require('fs'),
     paths = JSON.parse(pathFile.readFileSync('./paths.json'));
+var localSite = 'http://jdi-engine.loc/',
+    mobileBS=$.browserSync.create('mobile'),
+    adminBS=$.browserSync.create('admin'),
+    desktopBS=$.browserSync.create('desktop');
 /*=== @ CLEANER ===*/
 gulp.task('storage:clean', function () {
     return gulp
-        .src(paths.storage.clean, {read: true})
+        .src(paths.dist.clean, {read: true})
         .pipe($.clean());
 });
 gulp.task('public:clean', function () {
@@ -19,7 +23,14 @@ gulp.task('public:clean', function () {
             .src(paths.public.clean, {read: true})
             .pipe($.clean());
 });
-gulp.task('clean',['storage:clean','public:clean'])
+gulp.task('dist:clean', function () {
+    return gulp
+        .src([paths.dist.common.css,paths.dist.admin.css,paths.dist.mobile.css,paths.dist.desktop.css], {read: true})
+        .pipe($.clean());
+});
+gulp.task('clean', function () {
+    $.runSequence('dist:clean','storage:clean','public:clean');
+});
 /*=== ! CLEANER ===*/
 /*=== @ LIBRARY ===*/
 gulp.task('lib:jquery', function () {
@@ -118,15 +129,162 @@ gulp.task('js:mobile', function () {
     ]);
 });
 /*=== ! JS ===*/
+/*=== @ LESS ===*/
+gulp.task('less:common', function () {
+    return gulp
+        .src([paths.src.common.less,paths.src.common.ignore_less])
+        .pipe($.less())
+        .pipe(gulp.dest(paths.dist.common.css));
+});
+gulp.task('less:admin', function () {
+    return gulp
+        .src([paths.src.admin.less,paths.src.admin.ignore_less])
+        .pipe($.less())
+        .pipe(gulp.dest(paths.dist.admin.css));
+});
+gulp.task('less:desktop', function () {
+    return gulp
+        .src([paths.src.desktop.less,paths.src.desktop.ignore_less])
+        .pipe($.less())
+        .pipe(gulp.dest(paths.dist.desktop.css));
+});
+gulp.task('less:mobile', function () {
+    return gulp
+        .src([paths.src.mobile.less,paths.src.mobile.ignore_less])
+        .pipe($.less())
+        .pipe(gulp.dest(paths.dist.mobile.css));
+});
+/*=== ! LESS ===*/
+/*=== @ CSS ===*/
+gulp.task('css:common', function () {
+    return gulp
+            .src(paths.src.common.css)
+            .pipe($.autoprefixer({browsers:['last 2 version']}))
+            .pipe($.csscomb())
+            .pipe($.csso())
+            .pipe($.rename({suffix: '.min'}))
+            .pipe(gulp.dest(paths.dist.common.min_css))
+            .pipe($.concat('style.min.css'))
+});
+gulp.task('css:admin', function () {
+    return gulp
+        .src(paths.src.admin.css)
+        .pipe($.autoprefixer({browsers:['last 2 version']}))
+        .pipe($.csscomb())
+        .pipe($.csso())
+        .pipe($.rename({suffix: '.min'}))
+        .pipe(gulp.dest(paths.dist.admin.min_css))
+        .pipe($.concat('style.min.css'))
+        .pipe(gulp.dest(paths.public.admin.css))
+});
+gulp.task('css:desktop', function () {
+    return gulp
+        .src(paths.src.desktop.css)
+        .pipe($.autoprefixer({browsers:['last 2 version']}))
+        .pipe($.csscomb())
+        .pipe($.csso())
+        .pipe($.rename({suffix: '.min'}))
+        .pipe(gulp.dest(paths.dist.desktop.min_css))
+        .pipe($.concat('style.min.css'))
+        .pipe(gulp.dest(paths.public.desktop.css))
+});
+gulp.task('css:mobile', function () {
+    return gulp
+        .src(paths.src.mobile.css)
+        .pipe($.autoprefixer({browsers:['last 2 version']}))
+        .pipe($.csscomb())
+        .pipe($.csso())
+        .pipe($.rename({suffix: '.min'}))
+        .pipe(gulp.dest(paths.dist.mobile.min_css))
+        .pipe($.concat('style.min.css'))
+        .pipe(gulp.dest(paths.public.mobile.css))
+});
+/*=== ! CSS ===*/
+/*=== @ CONCAT ===*/
+gulp.task('concat:css:admin',function () {
+   return gulp
+            .src([paths.src.admin.min_css,paths.src.common.min_css])
+            .pipe($.sourcemaps.init())
+            .pipe($.concat('style.min.css'))
+            .pipe($.sourcemaps.write('.'))
+            .pipe(gulp.dest(paths.public.admin.css))
+});
+gulp.task('concat:css:desktop',function () {
+    return gulp
+        .src([paths.src.desktop.min_css,paths.src.common.min_css])
+        .pipe($.sourcemaps.init())
+        .pipe($.concat('style.min.css'))
+        .pipe($.sourcemaps.write('.'))
+        .pipe(gulp.dest(paths.public.desktop.css))
+});
+gulp.task('concat:css:mobile',function () {
+    return gulp
+        .src([paths.src.mobile.min_css,paths.src.common.min_css])
+        .pipe($.sourcemaps.init())
+        .pipe($.concat('style.min.css'))
+        .pipe($.sourcemaps.write('.'))
+        .pipe(gulp.dest(paths.public.mobile.css))
+});
+/*=== ! CONCAT ===*/
 /*=== @ BUILDER ===*/
+gulp.task('build:less',['less:common','less:admin','less:desktop','less:mobile']);
+gulp.task('build:css', ['css:common','css:admin','css:desktop','css:mobile']);
+gulp.task('build:concat', ['concat:css:admin','concat:css:desktop','concat:css:mobile']);
+gulp.task('build:styles',function () {
+   $.runSequence('build:less','build:css','build:concat')
+});
 gulp.task('build:js',['js:common','js:admin','js:desktop','js:mobile']);
 gulp.task('build:lib',['lib:jquery']);
 gulp.task('build:php',['php:common','php:admin','php:desktop','php:mobile']);
 gulp.task('build:pug',['pug:common','pug:admin','pug:desktop','pug:mobile']);
 gulp.task('build', function () {
-    $.runSequence('build:lib','build:php','build:pug','build:js');
+    $.runSequence('build:lib', 'build:styles', 'build:pug','build:php','build:js');
 });
 /*=== ! BUILDER ===*/
+/*=== @ WATCHER ===*/
+gulp.task('watch:common',function () {
+    gulp.watch(paths.src.common.less,['build:styles']);
+    gulp.watch(paths.src.common.js, ['build:js']);
+    gulp.watch(paths.src.common.pug, ['build:pug']);
+    gulp.watch(paths.src.common.php, ['build:php']);
+    gulp.watch(paths.src.library.jquery, ['build:lib']);
+    //gulp.watch(paths.src.common.fonts, ['fonts:build']); TODO: BUILDER FONTS/JSON
+});
+gulp.task('watch',['watch:common']);
+/*=== ! WATCHER ===*/
+/*=== @ RELOADER ===*/
+gulp.task('bs',function () {
+   adminBS.init({
+       proxy: 'admin.jdi-engine.loc',
+       port: 3000,
+       notify: false,
+       ui: {
+           port: 3001
+       },
+       browser: 'firefox'
+
+   });
+   mobileBS.init({
+       proxy: 'm.jdi-engine.loc',
+        port: 3002,
+       notify: false,
+       ui: {
+           port: 3003
+       },
+       browser: 'firefox'
+   });
+   desktopBS.init({
+       proxy: 'jdi-engine.loc',
+       port: 3004,
+       notify: false,
+       ui: {
+           port: 3005
+       },
+       browser: 'firefox'
+   })
+});
+/*=== ! RELOADER ===*/
 gulp.task('default', function () {
-    $.runSequence('clean','build')
+    $.runSequence('clean','build','watch');
+    $.runSequence('bs')
 });
