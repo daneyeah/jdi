@@ -226,6 +226,21 @@ gulp.task('concat:css:mobile',function () {
         .pipe(gulp.dest(paths.public.mobile.css))
 });
 /*=== ! CONCAT ===*/
+/*=== @ FONT ===*/
+gulp.task('font:less',function(){
+    return gulp
+        .src([paths.src.common.font.less,paths.src.common.font.ignore_less])
+        .pipe($.less())
+        .pipe(gulp.dest(paths.dist.common.font.css));
+});
+gulp.task('font:copy',function () {
+   return gulp
+            .src([paths.src.common.font.file,paths.src.common.font.css,paths.src.common.font.js])
+            .pipe($.multiDest([paths.public.admin.font,paths.public.desktop.font,paths.public.mobile.font]))
+});
+/*=== ! FONT ===*/
+
+
 /*=== @ BUILDER ===*/
 gulp.task('build:less',['less:common','less:admin','less:desktop','less:mobile']);
 gulp.task('build:css', ['css:common','css:admin','css:desktop','css:mobile']);
@@ -237,8 +252,9 @@ gulp.task('build:js',['js:common','js:admin','js:desktop','js:mobile']);
 gulp.task('build:lib',['lib:jquery']);
 gulp.task('build:php',['php:common','php:admin','php:desktop','php:mobile']);
 gulp.task('build:pug',['pug:common','pug:admin','pug:desktop','pug:mobile']);
+gulp.task('build:font', ['font:less','font:copy']);
 gulp.task('build', function () {
-    $.runSequence('build:lib', 'build:styles', 'build:pug','build:php','build:js');
+    $.runSequence('build:lib', 'build:styles', 'build:pug','build:php','build:js','build:font');
 });
 /*=== ! BUILDER ===*/
 /*=== @ WATCHER ===*/
@@ -248,7 +264,7 @@ gulp.task('watch:common',function () {
     gulp.watch(paths.src.common.pug, ['build:pug']);
     gulp.watch(paths.src.common.php, ['build:php']);
     gulp.watch(paths.src.library.jquery, ['build:lib']);
-    //gulp.watch(paths.src.common.fonts, ['fonts:build']); TODO: BUILDER FONTS/JSON
+    //gulp.watch(paths.src.common.fonts, ['fonts:build']); TODO: BUILDER JSON/IMAGE
 });
 gulp.task('watch',['watch:common']);
 /*=== ! WATCHER ===*/

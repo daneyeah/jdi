@@ -5,19 +5,22 @@
       "css": "public/admin/assets/css/",
       "js": "public/admin/assets/js/",
       "js_lib": "public/admin/assets/js/lib/",
-      "primary": "public/admin/"
+      "primary": "public/admin/",
+      "font": "public/admin/assets/fonts/"
     },
     "desktop":{
       "css": "public/desktop/assets/css/",
       "js": "public/desktop/assets/js/",
       "js_lib": "public/desktop/assets/js/lib/",
-      "primary": "public/desktop/"
+      "primary": "public/desktop/",
+      "font": "public/desktop/assets/fonts/"
     },
     "mobile":{
       "css": "public/mobile/assets/css/",
       "js": "public/mobile/assets/js/",
       "js_lib": "public/mobile/assets/js/lib/",
-      "primary": "public/mobile/"
+      "primary": "public/mobile/",
+      "font": "public/mobile/assets/fonts/"
     }
   },
   "src": {
@@ -44,6 +47,13 @@
       "min_css": "sources/common/assets/css/min/*.css",
       "less": "sources/common/assets/less/**/*.less",
       "ignore_less": "!sources/common/assets/less/**/__*.less",
+      "font": {
+        "less": "sources/common/assets/fonts/less/*.less",
+        "ignore_less": "!sources/common/assets/fonts/less/__*.less",
+        "js": "sources/common/assets/fonts/js/*.js",
+        "css": "sources/common/assets/fonts/css/*.css",
+        "file": "sources/common/assets/fonts/*.{eot,woff,svg,ttf}"
+      },
       "js": "sources/common/assets/js/*.js",
       "pug": "sources/common/**/*.pug",
       "php": "sources/common/**/*.php"
@@ -73,7 +83,10 @@
     },
     "common": {
       "css": "sources/common/assets/css",
-      "min_css": "sources/common/assets/css/min"
+      "min_css": "sources/common/assets/css/min",
+      "font": {
+        "css": "sources/common/assets/fonts/css"
+      }
     },
     "mobile": {
       "css": "sources/mobile/assets/css",
