@@ -227,20 +227,66 @@ gulp.task('concat:css:mobile',function () {
 });
 /*=== ! CONCAT ===*/
 /*=== @ FONT ===*/
-gulp.task('font:less',function(){
+gulp.task('font:less:common',function(){
     return gulp
         .src([paths.src.common.font.less,paths.src.common.font.ignore_less])
         .pipe($.less())
         .pipe(gulp.dest(paths.dist.common.font.css));
 });
-gulp.task('font:copy',function () {
+gulp.task('font:common',function () {
    return gulp
             .src([paths.src.common.font.file,paths.src.common.font.css,paths.src.common.font.js])
             .pipe($.multiDest([paths.public.admin.font,paths.public.desktop.font,paths.public.mobile.font]))
 });
 /*=== ! FONT ===*/
-
-
+/*=== @ IMAGES ===*/
+gulp.task('image:common',function (){
+    return gulp
+        .src(paths.src.common.image)
+        .pipe($.cache($.imagemin({use: [$.imageminPngquant()]})))
+        .pipe($.multiDest([paths.public.admin.image,paths.public.desktop.image,paths.public.mobile.image]))
+});
+gulp.task('image:admin',function (){
+    return gulp
+        .src(paths.src.admin.image)
+        .pipe($.cache($.imagemin({use: [$.imageminPngquant()]})))
+        .pipe(gulp.dest(paths.public.admin.image))
+});
+gulp.task('image:desktop',function (){
+    return gulp
+        .src(paths.src.desktop.image)
+        .pipe($.cache($.imagemin({use: [$.imageminPngquant()]})))
+        .pipe(gulp.dest(paths.public.desktop.image))
+});
+gulp.task('image:mobile',function (){
+    return gulp
+        .src(paths.src.mobile.image)
+        .pipe($.cache($.imagemin({use: [$.imageminPngquant()]})))
+        .pipe(gulp.dest(paths.public.mobile.image))
+});
+/*=== ! IMAGES ===*/
+/*=== @ JSON ===*/
+gulp.task('json:common',function () {
+    return gulp
+        .src(paths.src.common.json)
+        .pipe($.multiDest([paths.public.admin.primary,paths.public.desktop.primary,paths.public.mobile.primary]))
+});
+gulp.task('json:admin',function () {
+    return gulp
+        .src(paths.src.admin.json)
+        .pipe(gulp.dest(paths.public.admin.primary))
+});
+gulp.task('json:desktop',function () {
+    return gulp
+        .src(paths.src.desktop.json)
+        .pipe(gulp.dest(paths.public.desktop.primary))
+});
+gulp.task('json:mobile',function () {
+    return gulp
+        .src(paths.src.mobile.json)
+        .pipe(gulp.dest(paths.public.mobile.primary))
+});
+/*=== ! JSON ===*/
 /*=== @ BUILDER ===*/
 gulp.task('build:less',['less:common','less:admin','less:desktop','less:mobile']);
 gulp.task('build:css', ['css:common','css:admin','css:desktop','css:mobile']);
@@ -252,21 +298,54 @@ gulp.task('build:js',['js:common','js:admin','js:desktop','js:mobile']);
 gulp.task('build:lib',['lib:jquery']);
 gulp.task('build:php',['php:common','php:admin','php:desktop','php:mobile']);
 gulp.task('build:pug',['pug:common','pug:admin','pug:desktop','pug:mobile']);
-gulp.task('build:font', ['font:less','font:copy']);
+gulp.task('build:font', ['font:less:common','font:common']);
+gulp.task('build:image', ['image:common','image:admin','image:desktop','image:mobile']);
+gulp.task('build:json', ['json:common','json:admin','json:desktop','json:mobile']);
 gulp.task('build', function () {
-    $.runSequence('build:lib', 'build:styles', 'build:pug','build:php','build:js','build:font');
+    $.runSequence('build:lib', 'build:styles', 'build:pug','build:php','build:js','build:font', 'build:image', 'build:json');
 });
 /*=== ! BUILDER ===*/
 /*=== @ WATCHER ===*/
 gulp.task('watch:common',function () {
     gulp.watch(paths.src.common.less,['build:styles']);
     gulp.watch(paths.src.common.js, ['build:js']);
+    gulp.watch(paths.src.library.jquery, ['build:lib']);
     gulp.watch(paths.src.common.pug, ['build:pug']);
     gulp.watch(paths.src.common.php, ['build:php']);
-    gulp.watch(paths.src.library.jquery, ['build:lib']);
-    //gulp.watch(paths.src.common.fonts, ['fonts:build']); TODO: BUILDER JSON/IMAGE
+    gulp.watch(paths.src.common.json, ['build:json']);
+    gulp.watch(paths.src.common.image,['build:image']);
 });
-gulp.task('watch',['watch:common']);
+gulp.task('watch:admin',function () {
+    gulp.watch(paths.src.admin.less, function () {
+        $.runSequence('less:common','less:admin','css:common','css:admin','concat:css:admin',adminBS.reload)
+    });
+    gulp.watch(paths.src.admin.js, ['js:common','js:admin',adminBS.reload]);
+    gulp.watch(paths.src.admin.pug, ['pug:common','pug:admin',adminBS.reload]);
+    gulp.watch(paths.src.admin.php, ['php:common','php:admin',adminBS.reload]);
+    gulp.watch(paths.src.admin.json, ['json:common','json:admin',adminBS.reload]);
+    gulp.watch(paths.src.admin.image,['image:common','image:admin',adminBS.reload]);
+});
+gulp.task('watch:desktop',function () {
+    gulp.watch(paths.src.desktop.less, function () {
+        $.runSequence('less:common','less:desktop','css:common','css:desktop','concat:css:desktop',desktopBS.reload)
+    });
+    gulp.watch(paths.src.desktop.js, ['js:common','js:desktop',desktopBS.reload]);
+    gulp.watch(paths.src.desktop.pug, ['pug:common','pug:desktop',desktopBS.reload]);
+    gulp.watch(paths.src.desktop.php, ['php:common','php:desktop',desktopBS.reload]);
+    gulp.watch(paths.src.desktop.json, ['json:common','json:desktop',desktopBS.reload]);
+    gulp.watch(paths.src.desktop.image,['image:common','image:desktop',desktopBS.reload]);
+});
+gulp.task('watch:mobile',function () {
+    gulp.watch(paths.src.mobile.less, function () {
+        $.runSequence('less:common','less:mobile','css:common','css:mobile','concat:css:mobile',mobileBS.reload)
+    });
+    gulp.watch(paths.src.mobile.js, ['js:common','js:mobile',mobileBS.reload]);
+    gulp.watch(paths.src.mobile.pug, ['pug:common','pug:mobile',mobileBS.reload]);
+    gulp.watch(paths.src.mobile.php, ['php:common','php:mobile',mobileBS.reload]);
+    gulp.watch(paths.src.mobile.json, ['json:common','json:mobile',mobileBS.reload]);
+    gulp.watch(paths.src.mobile.image,['image:common','image:mobile',mobileBS.reload]);
+});
+gulp.task('watch',['watch:common','watch:admin','watch:desktop','watch:mobile']);
 /*=== ! WATCHER ===*/
 /*=== @ RELOADER ===*/
 gulp.task('bs',function () {

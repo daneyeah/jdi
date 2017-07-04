@@ -6,6 +6,7 @@
       "js": "public/admin/assets/js/",
       "js_lib": "public/admin/assets/js/lib/",
       "primary": "public/admin/",
+      "image": "public/admin/assets/images",
       "font": "public/admin/assets/fonts/"
     },
     "desktop":{
@@ -13,6 +14,7 @@
       "js": "public/desktop/assets/js/",
       "js_lib": "public/desktop/assets/js/lib/",
       "primary": "public/desktop/",
+      "image": "public/desktop/assets/images",
       "font": "public/desktop/assets/fonts/"
     },
     "mobile":{
@@ -20,33 +22,39 @@
       "js": "public/mobile/assets/js/",
       "js_lib": "public/mobile/assets/js/lib/",
       "primary": "public/mobile/",
+      "image": "public/mobile/assets/images",
       "font": "public/mobile/assets/fonts/"
     }
   },
   "src": {
     "admin": {
-      "css": "sources/admin/assets/css/**/*.css",
+      "css": "sources/admin/assets/css/*.css",
       "min_css": "sources/admin/assets/css/min/*.css",
+      "image": "sources/admin/assets/images/**/*.{png,jpg,jpeg}",
       "less": "sources/admin/assets/less/**/*.less",
       "ignore_less": "!sources/admin/assets/less/**/__*.less",
       "js": "sources/admin/assets/js/*.js",
       "pug": "sources/admin/**/*.pug",
-      "php": "sources/admin/**/*.php"
+      "php": "sources/admin/**/*.php",
+      "json": "sources/admin/**/*.json"
     },
     "desktop": {
-      "css": "sources/desktop/assets/css/**/*.css",
+      "css": "sources/desktop/assets/css/*.css",
       "min_css": "sources/desktop/assets/css/min/*.css",
+      "image": "sources/desktop/assets/images/**/*.{png,jpg,jpeg}",
       "less": "sources/desktop/assets/less/**/*.less",
       "ignore_less": "!sources/desktop/assets/less/**/__*.less",
       "js": "sources/desktop/assets/js/*.js",
       "pug": "sources/desktop/**/*.pug",
-      "php": "sources/desktop/**/*.php"
+      "php": "sources/desktop/**/*.php",
+      "json": "sources/desktop/**/*.json"
     },
     "common": {
-      "css": "sources/common/assets/css/**/*.css",
+      "css": "sources/common/assets/css/*.css",
       "min_css": "sources/common/assets/css/min/*.css",
       "less": "sources/common/assets/less/**/*.less",
       "ignore_less": "!sources/common/assets/less/**/__*.less",
+      "image": "sources/common/assets/images/**/*.{png,jpg,jpeg}",
       "font": {
         "less": "sources/common/assets/fonts/less/*.less",
         "ignore_less": "!sources/common/assets/fonts/less/__*.less",
@@ -56,16 +64,19 @@
       },
       "js": "sources/common/assets/js/*.js",
       "pug": "sources/common/**/*.pug",
-      "php": "sources/common/**/*.php"
+      "php": "sources/common/**/*.php",
+      "json": "sources/common/**/*.json"
     },
     "mobile": {
-      "css": "sources/mobile/assets/css/**/*.css",
+      "css": "sources/mobile/assets/css/*.css",
       "min_css": "sources/mobile/assets/css/min/*.css",
+      "image": "sources/mobile/assets/images/**/*.{png,jpg,jpeg}",
       "less": "sources/mobile/assets/less/**/*.less",
       "ignore_less": "!sources/mobile/assets/less/**/__*.less",
       "js": "sources/mobile/assets/js/*.js",
       "pug": "sources/mobile/**/*.pug",
-      "php": "sources/mobile/**/*.php"
+      "php": "sources/mobile/**/*.php",
+      "json": "sources/mobile/**/*.json"
     },
     "library": {
       "jquery": "./node_modules/jquery/dist/jquery.min.js"
