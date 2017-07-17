@@ -1,6 +1,7 @@
+<? require_once('protected/core.php'); require_once('protected/admin.core.php');?>
 doctype html
 head
-    title admin
+    title <?echo($config['title'].' '.$config_ver['version']);?>
     //=== @ CSS ===
     link(rel='stylesheet',type='text/css',href='/assets/css/style.min.css')
     link(rel='stylesheet',type='text/css',href='/assets/fonts/style.css')
@@ -8,6 +9,9 @@ head
     link(rel='stylesheet',type='text/css',href='/assets/fonts/ie7.css')
     <!--<![endif]-->
     //=== ! CSS ===
+    //=== @ META ===
+    meta(charset='utf-8')
+    //=== ! META ===
     //=== @ JS ===
     script(src='/assets/js/lib/jquery.min.js')
     script(src='/assets/js/functions.min.js')
@@ -15,4 +19,11 @@ head
     script(src='/assets/js/admin.jquery.min.js')
     //=== ! JS ===
 body
-    header
+    div.version
+        a(href='http://jdi-engine.loc/')
+            i.jdi-device-monitor
+            span &nbsp;desktop
+        span &nbsp;|&nbsp;
+        a(href='http://m.jdi-engine.loc/')
+            i.jdi-device-phone
+            span &nbsp;mobile

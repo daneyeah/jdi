@@ -34,9 +34,9 @@
       "less": "sources/admin/assets/less/**/*.less",
       "ignore_less": "!sources/admin/assets/less/**/__*.less",
       "js": "sources/admin/assets/js/*.js",
-      "pug": "sources/admin/**/*.pug",
+      "json": "sources/admin/**/*.json",
       "php": "sources/admin/**/*.php",
-      "json": "sources/admin/**/*.json"
+      "pug": "sources/admin/**/*.pug"
     },
     "desktop": {
       "css": "sources/desktop/assets/css/*.css",
@@ -55,6 +55,7 @@
       "less": "sources/common/assets/less/**/*.less",
       "ignore_less": "!sources/common/assets/less/**/__*.less",
       "image": "sources/common/assets/images/**/*.{png,jpg,jpeg}",
+      "htaccess": "sources/common/.htaccess",
       "font": {
         "less": "sources/common/assets/fonts/less/*.less",
         "ignore_less": "!sources/common/assets/fonts/less/__*.less",

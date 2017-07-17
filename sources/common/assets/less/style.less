@@ -1,11 +1,89 @@
 @import "__config";
-div {
-    background: @color;
+header {
+  height: 200px;
+  width: 100%;
+  .cover {
+
+  }
 }
-a {
-  text-decoration: none;
-}
-input, fieldset, textarea {
-  border: 0;
-  outline: none;
+nav {
+  background: rgba(56,56,56,1);
+  height: 50px;
+  width: 100%;
+  a {
+    color: #a0a0a0;
+    i {
+      color: #a0a0a0;
+    }
+    span {
+      color: #a0a0a0;
+    }
+    &:hover {
+      color: #f0f0f0;
+      i {
+        color: #f0f0f0;
+      }
+      span {
+        color: #f0f0f0;
+      }
+    }
+    &:visited, &:active, &:link {
+      color: #a0a0a0;
+    }
+  }
+  .menu {
+    float: left;
+    height: 100%;
+    min-width: 45%;
+    a {
+      display: inline-block;
+      height: 100%;
+      overflow: hidden;
+      padding: 0 2.5%;
+      position: relative;
+      text-align: center;
+      &:hover {
+        background: rgba(255,255,255,.2);
+
+        i {
+          color: #ffffff;
+        }
+        span {
+          color: #ffffff;
+          &.bar {
+            display: block;
+          }
+        }
+      }
+      i {
+        display: block;
+        font-size: 1.3em;
+        margin-top: 10px;
+      }
+      span {
+        display: block;
+        &.bar {
+          display: none;
+          position: absolute;
+          background: rgba(180, 23, 23, 1);
+          height: 2px;
+          padding: 0;
+          margin: 0;
+          width: 100%;
+          left: 0;
+          bottom: 0;
+        }
+      }
+    }
+  }
+  .nav-trigger {
+    display: inline-block;
+    float: left;
+    font-size: 1.5em;
+    line-height: 50px;
+    padding: 0 .5%;
+    &:hover {
+      background: rgba(255,255,255,.2);
+    }
+  }
 }

@@ -1,0 +1,21 @@
+RewriteEngine on
+RewriteBase /
+Options All -Indexes
+RewriteCond %{REQUEST_FILENAME} -s [OR]
+RewriteCond %{REQUEST_FILENAME} -l [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^assets/(.*)$ assets/$1 [L]
+#RewriteRule ^assets/images/(.*)$ assets/images/$1 [L]
+#RewriteRule ^assets/js/(.*)$ assets/js/$1 [L]
+#RewriteRule ^assets/fonts/(.*)$ assets/fonts/$1 [L]
+#RewriteRule ^protected/(.*)$ protected/$1 [L]
+RewriteRule .*? index.php
+AddDefaultCharset utf-8
+AddType 'text/html; charset=utf-8' .html .htm .shtml
+php_flag short_open_tag on
+# Custom error pages.
+ErrorDocument 400 /protected/app/views/errors/400.php
+ErrorDocument 401 /protected/app/views/errors/401.php
+ErrorDocument 403 /protected/app/views/errors/403.php
+ErrorDocument 404 /protected/app/views/errors/404.php
+ErrorDocument 500 /protected/app/views/errors/500.php

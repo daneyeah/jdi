@@ -1,6 +1,7 @@
+<? require_once('protected/core.php'); require_once('protected/desktop.core.php');?>
 doctype html
 head
-    title desktop
+    title <?echo($config['title'].' '.$config_ver['version']);?>
     //=== @ CSS ===
     link(rel='stylesheet',type='text/css',href='/assets/css/style.min.css')
     link(rel='stylesheet',type='text/css',href='/assets/fonts/style.css')
@@ -15,3 +16,7 @@ head
     script(src='/assets/js/desktop.jquery.min.js')
     //=== ! JS ===
 body
+    <?
+    |   require_once('protected/app/views/components/header.php');
+    |   require_once('protected/app/views/components/nav.php');
+    | ?>

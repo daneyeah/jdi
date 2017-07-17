@@ -1,8 +1,0 @@
-<?
-
-namespace models;
-
-class JDIPage
-{
-
-}

@@ -287,6 +287,13 @@ gulp.task('json:mobile',function () {
         .pipe(gulp.dest(paths.public.mobile.primary))
 });
 /*=== ! JSON ===*/
+/*=== @ HTACCESS ===*/
+gulp.task('htaccess:common', function () {
+   return gulp
+       .src(paths.src.common.htaccess)
+       .pipe($.multiDest([paths.public.admin.primary,paths.public.desktop.primary,paths.public.mobile.primary]))
+});
+/*=== ! HTACCESS ===*/
 /*=== @ BUILDER ===*/
 gulp.task('build:less',['less:common','less:admin','less:desktop','less:mobile']);
 gulp.task('build:css', ['css:common','css:admin','css:desktop','css:mobile']);
@@ -301,8 +308,9 @@ gulp.task('build:pug',['pug:common','pug:admin','pug:desktop','pug:mobile']);
 gulp.task('build:font', ['font:less:common','font:common']);
 gulp.task('build:image', ['image:common','image:admin','image:desktop','image:mobile']);
 gulp.task('build:json', ['json:common','json:admin','json:desktop','json:mobile']);
+gulp.task('build:htaccess', ['htaccess:common']);
 gulp.task('build', function () {
-    $.runSequence('build:lib', 'build:styles', 'build:pug','build:php','build:js','build:font', 'build:image', 'build:json');
+    $.runSequence('build:lib', 'build:styles', 'build:pug','build:php','build:js','build:font', 'build:image', 'build:json', 'build:htaccess');
 });
 /*=== ! BUILDER ===*/
 /*=== @ WATCHER ===*/
@@ -314,6 +322,7 @@ gulp.task('watch:common',function () {
     gulp.watch(paths.src.common.php, ['build:php']);
     gulp.watch(paths.src.common.json, ['build:json']);
     gulp.watch(paths.src.common.image,['build:image']);
+
 });
 gulp.task('watch:admin',function () {
     gulp.watch(paths.src.admin.less, function () {
@@ -383,3 +392,4 @@ gulp.task('default', function () {
     $.runSequence('clean','build','watch');
     $.runSequence('bs')
 });
+//TODO: MULTIPLE RELOAD WHEN CHANGE COMMON_DIR

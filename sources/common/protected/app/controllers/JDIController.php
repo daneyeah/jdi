@@ -1,8 +1,0 @@
-<?
-
-namespace controllers;
-
-class JDIController
-{
-
-}
